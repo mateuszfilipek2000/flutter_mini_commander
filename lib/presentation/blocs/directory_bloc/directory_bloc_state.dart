@@ -2,21 +2,23 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 
-abstract class DirectoryBlocState extends Equatable {
+extension Equals on FileSystemEntity {}
+
+abstract class DirectoryBlocState {
   const DirectoryBlocState();
 }
 
 class DirectoryBlocStateInitial extends DirectoryBlocState {
   const DirectoryBlocStateInitial();
-  @override
-  List<Object?> get props => [];
+  // @override
+  // List<Object?> get props => [];
 }
 
 class DirectoryBlocStateLoading extends DirectoryBlocState {
   const DirectoryBlocStateLoading();
 
-  @override
-  List<Object?> get props => [];
+  // @override
+  // List<Object?> get props => [];
 }
 
 class DirectoryBlocStateLoadingSuccess extends DirectoryBlocState {
@@ -41,18 +43,18 @@ class DirectoryBlocStateLoadingSuccess extends DirectoryBlocState {
         selectedChildren: selectedChildren ?? this.selectedChildren,
       );
 
-  @override
-  List<Object?> get props => [
-        directoryChildren,
-        hasParent,
-        selectedChildren,
-      ];
+  // @override
+  // List<Object?> get props => [
+  //       directoryChildren,
+  //       hasParent,
+  //       selectedChildren,
+  //     ];
 }
 
 class DirectoryBlocStateLoadingFailure extends DirectoryBlocState {
   const DirectoryBlocStateLoadingFailure(this.exception);
-  @override
-  List<Object?> get props => [];
+  // @override
+  // List<Object?> get props => [];
 
   final Object? exception;
 }

@@ -42,7 +42,7 @@ class DirectoryBloc extends Bloc<DirectoryBlocEvent, DirectoryBlocState> {
       } else {
         if (isSource) {
           selectedChildren.add(event.target);
-        } else {
+        } else if (event.target is Directory) {
           selectedChildren = [event.target];
         }
 

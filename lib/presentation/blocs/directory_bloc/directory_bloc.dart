@@ -24,6 +24,7 @@ class DirectoryBloc extends Bloc<DirectoryBlocEvent, DirectoryBlocState> {
             currentDirectory: Directory(event.target.path),
           ),
         );
+        selectedChildren = [];
       } catch (e) {
         log("Couldn't retrieve children from target directory");
         emit(

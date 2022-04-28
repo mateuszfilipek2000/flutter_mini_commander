@@ -23,7 +23,7 @@ class FileCopyBloc extends Bloc<FileCopyEvent, FileCopyState> {
           if (item is File) {
             await item.copy(event.targetDirectory.path + '/${item.name}');
           } else if (item is Directory) {
-            await copyPath(item.path, event.targetDirectory.path);
+            await copyPath(item.path, event.targetDirectory.path + '/');
           }
         } catch (e) {
           log(e.toString());

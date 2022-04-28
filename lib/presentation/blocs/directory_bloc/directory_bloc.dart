@@ -19,8 +19,9 @@ class DirectoryBloc extends Bloc<DirectoryBlocEvent, DirectoryBlocState> {
         emit(
           DirectoryBlocStateLoadingSuccess(
             directoryChildren: targetChildren..sort(customFileSystemEntitySort),
-            hasParent: event.target.parent != event.target,
+            hasParent: event.target.parent.path != event.target.path,
             selectedChildren: const [],
+            currentDirectory: Directory(event.target.path),
           ),
         );
       } catch (e) {
@@ -32,23 +33,26 @@ class DirectoryBloc extends Bloc<DirectoryBlocEvent, DirectoryBlocState> {
     });
     on<DirectoryBlocSelectTarget>((event, emit) {
       if (selectedChildren.contains(event.target)) {
-        //item is already selected, checking if it is a directory
-        if (event.target is Directory) {
-          // target is already selected, and is a directory, moving up the tree
-          add(
-            DirectoryBlocLoadFolderContentsEvent(target: event.target),
-          );
-        }
+        //if the selected item is tapped again, and it isn't a double tap,
+        //then the tapped item is no longer selected
+        selectedChildren.remove(event.target);
       } else {
         if (isSource) {
           selectedChildren.add(event.target);
         } else if (event.target is Directory) {
           selectedChildren = [event.target];
         }
+      }
 
-        emit(
-          (state as DirectoryBlocStateLoadingSuccess)
-              .copyWith(selectedChildren: selectedChildren),
+      emit(
+        (state as DirectoryBlocStateLoadingSuccess)
+            .copyWith(selectedChildren: selectedChildren),
+      );
+    });
+    on<DirectoryBlocDoubleTap>((event, emit) {
+      if (event.target is Directory) {
+        add(
+          DirectoryBlocLoadFolderContentsEvent(target: event.target),
         );
       }
     });
@@ -74,11 +78,14 @@ class DirectoryBloc extends Bloc<DirectoryBlocEvent, DirectoryBlocState> {
   // List<FileSystemEntity> selectedChildren = [];
 }
 
-//TODO MOVE THIS EXTENSION, AND SORT FUNC TO OTHER FILE, EXTENSION IS ALSO USED IN MAIN SCREEN
+//TODO MOVE THIS EXTENSION AND SORT FUNC TO SOME OTHER FILE
 extension EntityName on FileSystemEntity {
   String get name => path.split('/').last;
 }
 
+/// custom sorting method used for sorting file system entities,
+/// directories are placed first, sorted alphabetically
+/// files are placed after directories, sorted alphabetically
 int customFileSystemEntitySort(
     FileSystemEntity entity1, FileSystemEntity entity2) {
   if (entity1 is Directory && entity2 is Directory) {

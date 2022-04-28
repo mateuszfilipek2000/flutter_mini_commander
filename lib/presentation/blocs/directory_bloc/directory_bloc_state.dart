@@ -26,21 +26,25 @@ class DirectoryBlocStateLoadingSuccess extends DirectoryBlocState {
     required this.directoryChildren,
     required this.hasParent,
     required this.selectedChildren,
+    required this.currentDirectory,
   });
 
   final List<FileSystemEntity> directoryChildren;
   final bool hasParent;
   final List<FileSystemEntity> selectedChildren;
+  final Directory currentDirectory;
 
   DirectoryBlocStateLoadingSuccess copyWith({
     List<FileSystemEntity>? directoryChildren,
     bool? hasParent,
     List<FileSystemEntity>? selectedChildren,
+    Directory? currentDirectory,
   }) =>
       DirectoryBlocStateLoadingSuccess(
         directoryChildren: directoryChildren ?? this.directoryChildren,
         hasParent: hasParent ?? this.hasParent,
         selectedChildren: selectedChildren ?? this.selectedChildren,
+        currentDirectory: currentDirectory ?? this.currentDirectory,
       );
 
   // @override

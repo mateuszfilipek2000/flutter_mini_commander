@@ -23,3 +23,11 @@ class DirectoryBlocSelectTarget extends DirectoryBlocEvent {
 class DirectoryBlocLoadUserHomeContents extends DirectoryBlocEvent {
   const DirectoryBlocLoadUserHomeContents();
 }
+
+class DirectoryBlocDoubleTap extends DirectoryBlocEvent {
+  const DirectoryBlocDoubleTap({
+    required this.target,
+  });
+
+  final FileSystemEntity target;
+}

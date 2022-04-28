@@ -37,6 +37,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   equatable: ^2.0.3
   universal_disk_space: ^0.2.3
+  io: ^1.0.3
 
 dev_dependencies:
   flutter_test:

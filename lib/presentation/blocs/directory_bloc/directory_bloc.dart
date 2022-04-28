@@ -78,7 +78,6 @@ class DirectoryBloc extends Bloc<DirectoryBlocEvent, DirectoryBlocState> {
   // List<FileSystemEntity> selectedChildren = [];
 }
 
-//TODO MOVE THIS EXTENSION AND SORT FUNC TO SOME OTHER FILE
 extension EntityName on FileSystemEntity {
   String get name => path.split('/').last;
 }

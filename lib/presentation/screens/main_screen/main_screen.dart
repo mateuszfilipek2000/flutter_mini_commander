@@ -1,17 +1,16 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_mini_commander/presentation/blocs/destination_bloc/destination_bloc.dart';
 import 'package:flutter_mini_commander/presentation/blocs/destination_drive_selection_bloc/destination_drive_selection_bloc.dart';
-import 'package:flutter_mini_commander/presentation/blocs/directory_bloc/directory_bloc.dart';
 import 'package:flutter_mini_commander/presentation/blocs/directory_bloc/directory_bloc_event.dart';
-import 'package:flutter_mini_commander/presentation/blocs/directory_bloc/directory_bloc_state.dart';
 import 'package:flutter_mini_commander/presentation/blocs/source_bloc/source_directory_bloc.dart';
 import 'package:flutter_mini_commander/presentation/blocs/source_drive_selection_bloc/source_drive_selection_bloc.dart';
+import 'package:flutter_mini_commander/presentation/screens/main_screen/widgets/copy_files_button.dart';
 import 'package:flutter_mini_commander/presentation/screens/main_screen/widgets/drive_selector.dart';
 import 'package:flutter_mini_commander/presentation/screens/main_screen/widgets/file_system_view.dart';
 import 'package:flutter_mini_commander/presentation/screens/main_screen/widgets/path_field.dart';
+
+import '../../blocs/file_copy_bloc/file_copy_bloc.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -38,6 +37,10 @@ class MainScreen extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => DestinationDriveSelectionBloc(),
+          lazy: false,
+        ),
+        BlocProvider(
+          create: (context) => FileCopyBloc(),
           lazy: false,
         ),
       ],
@@ -90,11 +93,10 @@ class MainScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
+            const Expanded(
               flex: 1,
-              child: Container(
-                color: Colors.red,
-              ),
+              child: CopyFilesButton<SourceDirectoryBloc,
+                  DestinationDirectoryBloc>(),
             ),
           ],
         ),

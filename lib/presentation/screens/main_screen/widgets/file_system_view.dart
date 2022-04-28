@@ -13,8 +13,8 @@ class FileSystemView<T extends DirectoryBloc> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.amber,
+    return Card(
+      elevation: 10.0,
       child: BlocBuilder<T, DirectoryBlocState>(
         builder: (context, state) {
           if (state is DirectoryBlocStateLoadingSuccess) {
@@ -43,24 +43,21 @@ class FileSystemView<T extends DirectoryBloc> extends StatelessWidget {
                     itemCount: state.directoryChildren.length,
                     itemBuilder: (context, index) {
                       final item = state.directoryChildren[index];
-                      return MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: () => context.read<T>().add(
-                                DirectoryBlocSelectTarget(target: item),
-                              ),
-                          onDoubleTap: () => context.read<T>().add(
-                                DirectoryBlocDoubleTap(target: item),
-                              ),
-                          child: ListTile(
-                            title: Text(
-                              item.name,
+                      return GestureDetector(
+                        onTap: () => context.read<T>().add(
+                              DirectoryBlocSelectTarget(target: item),
                             ),
-                            leading: item is Directory
-                                ? const Icon(Icons.folder)
-                                : null,
-                            selected: state.selectedChildren.contains(item),
+                        onDoubleTap: () => context.read<T>().add(
+                              DirectoryBlocDoubleTap(target: item),
+                            ),
+                        child: ListTile(
+                          title: Text(
+                            item.name,
                           ),
+                          leading: item is Directory
+                              ? const Icon(Icons.folder)
+                              : null,
+                          selected: state.selectedChildren.contains(item),
                         ),
                       );
                     },

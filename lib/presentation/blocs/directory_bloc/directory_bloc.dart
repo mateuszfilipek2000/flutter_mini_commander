@@ -73,10 +73,7 @@ class DirectoryBloc extends Bloc<DirectoryBlocEvent, DirectoryBlocState> {
   }
 
   List<FileSystemEntity> selectedChildren = [];
-  //if bloc is a source bloc then multiple children can be selected
   final bool isSource;
-  // Directory currentDirectory;
-  // List<FileSystemEntity> selectedChildren = [];
 }
 
 extension EntityName on FileSystemEntity {

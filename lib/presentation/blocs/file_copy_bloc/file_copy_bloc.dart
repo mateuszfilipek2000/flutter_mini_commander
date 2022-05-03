@@ -17,24 +17,55 @@ class FileCopyBloc extends Bloc<FileCopyEvent, FileCopyState> {
           currentFile: event.filesToCopy.first,
         ),
       );
-      for (int i = 0; i < event.filesToCopy.length; i++) {
-        final item = event.filesToCopy[i];
+
+      for (final item in event.filesToCopy) {
         try {
           if (item is File) {
-            await item.copy(event.targetDirectory.path + '/${item.name}');
+            await item.copy("${event.targetDirectory.path}/${item.name}");
           } else if (item is Directory) {
             await copyPath(
-                item.path, event.targetDirectory.path + '/${item.name}/');
+              item.path,
+              "${event.targetDirectory.path}/${item.name}",
+            );
           }
         } catch (e) {
           log(e.toString());
-          emit((state as FileCopyCopying).copyWith(
+          emit(
+            (state as FileCopyCopying).copyWith(
               failedToCopy: List.from(
-            (state as FileCopyCopying).failedToCopy,
-          )..add(item)));
+                (state as FileCopyCopying).failedToCopy,
+              )..add(item),
+            ),
+          );
         }
       }
-      emit(FileCopyFinishedCopying((state as FileCopyCopying).failedToCopy));
+
+      // for (int i = 0; i < event.filesToCopy.length; i++) {
+      //   final item = event.filesToCopy[i];
+      //   try {
+      //     if (item is File) {
+      //       await item.copy(event.targetDirectory.path + '/${item.name}');
+      //     } else if (item is Directory) {
+      //       await copyPath(
+      //           item.path, event.targetDirectory.path + '/${item.name}/');
+      //     }
+      //   } catch (e) {
+      //     log(e.toString());
+      //     emit((state as FileCopyCopying).copyWith(
+      //         failedToCopy: List.from(
+      //       (state as FileCopyCopying).failedToCopy,
+      //     )..add(item)));
+      //   }
+      // }
+
+      emit(
+        FileCopyFinishedCopying(
+          (state as FileCopyCopying).failedToCopy.isNotEmpty
+              ? "Failed to copy: " +
+                  (state as FileCopyCopying).failedToCopy.join(", ")
+              : "Succesfully copied all the files",
+        ),
+      );
     });
   }
 }

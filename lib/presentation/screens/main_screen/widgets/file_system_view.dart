@@ -58,6 +58,7 @@ class FileSystemView<T extends DirectoryBloc> extends StatelessWidget {
                               ? const Icon(Icons.folder)
                               : null,
                           selected: state.selectedChildren.contains(item),
+                          selectedTileColor: Colors.black12,
                         ),
                       );
                     },

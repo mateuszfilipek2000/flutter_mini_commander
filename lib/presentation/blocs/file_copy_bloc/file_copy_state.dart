@@ -49,9 +49,11 @@ class FileCopyCopying extends FileCopyState {
 }
 
 class FileCopyFinishedCopying extends FileCopyState {
-  const FileCopyFinishedCopying(this.failedToCopy);
-  final List<FileSystemEntity> failedToCopy;
+  const FileCopyFinishedCopying(this.message);
+  // final List<FileSystemEntity> failedToCopy;
+
+  final String message;
 
   @override
-  List<Object?> get props => [failedToCopy];
+  List<Object?> get props => [message];
 }

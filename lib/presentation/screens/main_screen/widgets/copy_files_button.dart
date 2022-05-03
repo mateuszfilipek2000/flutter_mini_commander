@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_mini_commander/presentation/blocs/directory_bloc/directory_bloc.dart';
-import 'package:flutter_mini_commander/presentation/blocs/directory_bloc/directory_bloc_event.dart';
 import 'package:flutter_mini_commander/presentation/blocs/directory_bloc/directory_bloc_state.dart';
 import 'package:flutter_mini_commander/presentation/blocs/file_copy_bloc/file_copy_bloc.dart';
 import 'package:flutter_mini_commander/presentation/blocs/file_copy_bloc/file_copy_event.dart';
@@ -18,14 +17,20 @@ class CopyFilesButton<S extends DirectoryBloc, D extends DirectoryBloc>
       child: BlocListener<FileCopyBloc, FileCopyState>(
         listener: (context, state) {
           if (state is FileCopyFinishedCopying) {
-            if (state.failedToCopy.isNotEmpty) {
-              showDialog(
-                builder: (BuildContext context) {
-                  return Container();
-                },
-                context: context,
-              );
-            }
+            showDialog(
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  content: Text(state.message),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text("Ok"),
+                    ),
+                  ],
+                );
+              },
+              context: context,
+            );
           }
         },
         child: BlocBuilder<S, DirectoryBlocState>(

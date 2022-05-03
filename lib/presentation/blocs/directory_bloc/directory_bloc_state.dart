@@ -8,15 +8,10 @@ abstract class DirectoryBlocState {
 
 class DirectoryBlocStateInitial extends DirectoryBlocState {
   const DirectoryBlocStateInitial();
-  // @override
-  // List<Object?> get props => [];
 }
 
 class DirectoryBlocStateLoading extends DirectoryBlocState {
   const DirectoryBlocStateLoading();
-
-  // @override
-  // List<Object?> get props => [];
 }
 
 class DirectoryBlocStateLoadingSuccess extends DirectoryBlocState {

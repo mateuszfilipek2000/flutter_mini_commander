@@ -31,7 +31,7 @@ class DriveSelector<T extends DirectoryBloc, V extends DriveSelectionBloc>
                             target: Directory(selectedDrive),
                           ),
                         ),
-                    items: state.drives.map((disk) => disk.mountPath).toList(),
+                    items: state.drives.map((disk) => disk.mountPath),
                   ),
                 ),
                 contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -58,7 +58,7 @@ class SelectableList extends StatefulWidget {
   }) : super(key: key);
 
   final Function(String) onConfirm;
-  final List<String> items;
+  final Iterable<String> items;
 
   @override
   State<SelectableList> createState() => _SelectableListState();
@@ -79,7 +79,7 @@ class _SelectableListState extends State<SelectableList> {
             // shrinkWrap: true,
             itemCount: widget.items.length,
             itemBuilder: (context, index) {
-              final item = widget.items[index];
+              final item = widget.items.elementAt(index);
               return ListTile(
                 selected: index == selectedIndex,
                 title: Text(item),
@@ -112,7 +112,9 @@ class _SelectableListState extends State<SelectableList> {
                 onPressed: selectedIndex == null
                     ? null
                     : () {
-                        widget.onConfirm(widget.items[selectedIndex!]);
+                        widget.onConfirm(
+                          widget.items.elementAt(selectedIndex!),
+                        );
                         Navigator.of(context).pop();
                       },
               ),
@@ -121,20 +123,5 @@ class _SelectableListState extends State<SelectableList> {
         )
       ],
     );
-    // actions: [
-    //   ElevatedButton(
-    //     child: const Text("Cancel"),
-    //     onPressed: () => Navigator.of(context).pop(),
-    //   ),
-    //   ElevatedButton(
-    //     child: const Text("Select"),
-    //     onPressed: selectedIndex == null
-    //         ? null
-    //         : () {
-    //             widget.onConfirm(widget.items[selectedIndex!]);
-    //             Navigator.of(context).pop();
-    //           },
-    //   ),
-    // ],
   }
 }

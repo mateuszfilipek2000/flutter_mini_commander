@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:universal_disk_space/universal_disk_space.dart';
+import 'package:flutter_mini_commander/data/models/drive_model.dart';
 
 abstract class DriveSelectionState extends Equatable {
   const DriveSelectionState();
@@ -21,7 +21,7 @@ class DriveSelectionLoading extends DriveSelectionState {
 class DriveSelectionLoadingSuccess extends DriveSelectionState {
   const DriveSelectionLoadingSuccess(this.drives);
 
-  final Iterable<Disk> drives;
+  final Iterable<Drive> drives;
 
   @override
   List<Object?> get props => [drives];

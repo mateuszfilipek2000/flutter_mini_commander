@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_mini_commander/data/interfaces/ifile_system_operation_provider.dart';
 import 'package:flutter_mini_commander/presentation/blocs/destination_bloc/destination_bloc.dart';
 import 'package:flutter_mini_commander/presentation/blocs/destination_drive_selection_bloc/destination_drive_selection_bloc.dart';
 import 'package:flutter_mini_commander/presentation/blocs/directory_bloc/directory_bloc_event.dart';
@@ -24,25 +25,38 @@ class MainScreen extends StatelessWidget {
         BlocProvider(
           create: (context) => SourceDirectoryBloc(
             isSource: true,
+            openDirectory:
+                RepositoryProvider.of<IFileSystemOperationProvider>(context),
           )..add(const DirectoryBlocLoadUserHomeContents()),
           lazy: false,
         ),
         BlocProvider(
           create: (context) => DestinationDirectoryBloc(
             isSource: false,
+            openDirectory:
+                RepositoryProvider.of<IFileSystemOperationProvider>(context),
           )..add(const DirectoryBlocLoadUserHomeContents()),
           lazy: false,
         ),
         BlocProvider(
-          create: (context) => SourceDriveSelectionBloc(),
+          create: (context) => SourceDriveSelectionBloc(
+            driveListProvider:
+                RepositoryProvider.of<IFileSystemOperationProvider>(context),
+          ),
           lazy: false,
         ),
         BlocProvider(
-          create: (context) => DestinationDriveSelectionBloc(),
+          create: (context) => DestinationDriveSelectionBloc(
+            driveListProvider:
+                RepositoryProvider.of<IFileSystemOperationProvider>(context),
+          ),
           lazy: false,
         ),
         BlocProvider(
-          create: (context) => FileCopyBloc(),
+          create: (context) => FileCopyBloc(
+            copyProvider:
+                RepositoryProvider.of<IFileSystemOperationProvider>(context),
+          ),
           lazy: false,
         ),
       ],
@@ -54,7 +68,7 @@ class MainScreen extends StatelessWidget {
             if (destinationDirectoryState is DirectoryBlocStateLoadingSuccess) {
               context.read<DestinationDirectoryBloc>().add(
                     DirectoryBlocLoadFolderContentsEvent(
-                      target: destinationDirectoryState.currentDirectory,
+                      target: destinationDirectoryState.currentDirectory.path,
                     ),
                   );
             }

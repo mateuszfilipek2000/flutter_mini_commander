@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:equatable/equatable.dart';
 
 abstract class FileCopyState extends Equatable {
@@ -14,37 +12,22 @@ class FileCopyInitial extends FileCopyState {
 }
 
 class FileCopyCopying extends FileCopyState {
-  const FileCopyCopying({
-    required this.failedToCopy,
-    required this.currentFileIndex,
-    required this.total,
-    required this.currentFile,
-  });
+  const FileCopyCopying();
 
-  final List<FileSystemEntity> failedToCopy;
-  final int currentFileIndex;
-  final int total;
-  final FileSystemEntity currentFile;
-
-  FileCopyCopying copyWith({
-    List<FileSystemEntity>? failedToCopy,
-    int? currentFileIndex,
-    int? total,
-    FileSystemEntity? currentFile,
-  }) =>
-      FileCopyCopying(
-        failedToCopy: failedToCopy ?? this.failedToCopy,
-        currentFileIndex: currentFileIndex ?? this.currentFileIndex,
-        currentFile: currentFile ?? this.currentFile,
-        total: total ?? this.total,
-      );
+  // FileCopyCopying copyWith({
+  //   int? currentFileIndex,
+  //   int? total,
+  //   Entity? currentFile,
+  // }) =>
+  //     FileCopyCopying(
+  //     );
 
   @override
   List<Object?> get props => [
-        failedToCopy,
-        currentFileIndex,
-        total,
-        currentFile,
+        // failedToCopy,
+        // currentFileIndex,
+        // total,
+        // currentFile,
       ];
 }
 

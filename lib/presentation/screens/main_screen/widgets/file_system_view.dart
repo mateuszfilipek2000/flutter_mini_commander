@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_mini_commander/data/models/directory_model.dart';
 import 'package:flutter_mini_commander/presentation/blocs/directory_bloc/directory_bloc.dart';
 import 'package:flutter_mini_commander/presentation/blocs/directory_bloc/directory_bloc_event.dart';
 import 'package:flutter_mini_commander/presentation/blocs/directory_bloc/directory_bloc_state.dart';
@@ -21,11 +22,13 @@ class FileSystemView<T extends DirectoryBloc> extends StatelessWidget {
             return Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                state.hasParent
+                state.currentDirectory.parentPath != null
                     ? GestureDetector(
                         onDoubleTap: () => context.read<T>().add(
                               DirectoryBlocDoubleTap(
-                                target: state.currentDirectory.parent,
+                                target: DirectoryModel(
+                                  path: state.currentDirectory.parentPath!,
+                                ),
                               ),
                             ),
                         child: const ListTile(

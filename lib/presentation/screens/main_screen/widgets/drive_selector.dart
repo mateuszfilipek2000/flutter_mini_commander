@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_mini_commander/presentation/blocs/directory_bloc/directory_bloc.dart';
@@ -28,10 +26,10 @@ class DriveSelector<T extends DirectoryBloc, V extends DriveSelectionBloc>
                   child: SelectableList(
                     onConfirm: (String selectedDrive) => context.read<T>().add(
                           DirectoryBlocLoadFolderContentsEvent(
-                            target: Directory(selectedDrive),
+                            target: selectedDrive,
                           ),
                         ),
-                    items: state.drives.map((disk) => disk.mountPath),
+                    items: state.drives.map((disk) => disk.path),
                   ),
                 ),
                 contentPadding: const EdgeInsets.symmetric(vertical: 10.0),

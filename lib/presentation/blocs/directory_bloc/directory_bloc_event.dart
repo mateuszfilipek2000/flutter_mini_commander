@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:flutter_mini_commander/data/models/entities.dart';
 
 abstract class DirectoryBlocEvent {
   const DirectoryBlocEvent();
@@ -6,10 +6,10 @@ abstract class DirectoryBlocEvent {
 
 class DirectoryBlocLoadFolderContentsEvent extends DirectoryBlocEvent {
   const DirectoryBlocLoadFolderContentsEvent({
-    required this.target,
+    this.target,
   });
 
-  final FileSystemEntity target;
+  final String? target;
 }
 
 class DirectoryBlocSelectTarget extends DirectoryBlocEvent {
@@ -17,7 +17,7 @@ class DirectoryBlocSelectTarget extends DirectoryBlocEvent {
     required this.target,
   });
 
-  final FileSystemEntity target;
+  final Entity target;
 }
 
 class DirectoryBlocLoadUserHomeContents extends DirectoryBlocEvent {
@@ -29,5 +29,5 @@ class DirectoryBlocDoubleTap extends DirectoryBlocEvent {
     required this.target,
   });
 
-  final FileSystemEntity target;
+  final Entity target;
 }

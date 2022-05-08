@@ -13,7 +13,7 @@ class FileCopyBloc extends Bloc<FileCopyEvent, FileCopyState> {
       String message = "Succesfully copied all the files";
 
       try {
-        copyProvider.copy(
+        await copyProvider.copy(
           targetDirPath: event.targetDirectory.path,
           fileSystemEntities: event.filesToCopy,
         );

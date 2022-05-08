@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter_mini_commander/data/interfaces/icopy_entities.dart';
@@ -16,6 +17,8 @@ class LocalCopyEntites implements ICopyEntities {
     required Iterable<Entity> fileSystemEntities,
   }) async {
     List<String> notCopied = [];
+
+    log(fileSystemEntities.toList().toString());
 
     for (final entity in fileSystemEntities) {
       try {

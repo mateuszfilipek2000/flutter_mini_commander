@@ -1,7 +1,7 @@
 import 'package:flutter_mini_commander/data/models/entities.dart';
 
 class DirectoryModel extends Entity {
-  const DirectoryModel({
+  DirectoryModel({
     required String path,
     this.parentPath,
     // this.contents,
@@ -11,7 +11,7 @@ class DirectoryModel extends Entity {
   // Future<Iterable<Entity>> get listContents {
 
   // }
-  final String? parentPath;
+  String? parentPath;
 
   DirectoryModel copyWith({
     String? path,

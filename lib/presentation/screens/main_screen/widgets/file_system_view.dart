@@ -57,7 +57,7 @@ class FileSystemView<T extends DirectoryBloc> extends StatelessWidget {
                           title: Text(
                             item.name,
                           ),
-                          leading: item is Directory
+                          leading: item is DirectoryModel
                               ? const Icon(Icons.folder)
                               : null,
                           selected: state.selectedChildren.contains(item),

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-String getUserHomeDirectoryPath() {
+String LocalGetUserHomeDirectoryPath() {
   String? home = "";
   Map<String, String> envVars = Platform.environment;
 

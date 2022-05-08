@@ -12,25 +12,24 @@ class DirectoryBloc extends Bloc<DirectoryBlocEvent, DirectoryBlocState> {
   DirectoryBloc({
     required this.isSource,
     required this.openDirectory,
+    this.userDirectorySource,
   }) : super(const DirectoryBlocStateInitial()) {
     on<DirectoryBlocLoadFolderContentsEvent>((event, emit) async {
       emit(const DirectoryBlocStateLoading());
       try {
         //retrieving all the children from target dir
         // final targetChildren = Directory(event.target.path).listSync();
-        final targetChildren = (await openDirectory.openDirectory(
+        final res = (await openDirectory.openDirectory(
           targetPath: event.target,
-        ))
-            .toList();
+        ));
+        final targetChildren = res.value.toList();
         log("Succesfully retrieved children of directory ${event.target}");
 
         emit(
           DirectoryBlocStateLoadingSuccess(
             directoryChildren: targetChildren..sort(customFileSystemEntitySort),
             selectedChildren: const [],
-            currentDirectory: DirectoryModel(
-              path: event.target!,
-            ),
+            currentDirectory: res.key,
           ),
         );
         selectedChildren = [];
@@ -83,6 +82,7 @@ class DirectoryBloc extends Bloc<DirectoryBlocEvent, DirectoryBlocState> {
   final bool isSource;
 
   final IOpenDirectory openDirectory;
+  final String? userDirectorySource;
 }
 
 // extension EntityName on Entity {

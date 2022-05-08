@@ -7,7 +7,8 @@ import 'package:flutter_mini_commander/data/interfaces/ifile_system_operation_pr
 class LocalSystemOperationProvider
     with
         LocalCopyEntites,
-        LocalMoveUp,
+        // LocalMoveUp,
         LocalOpenDirectory,
         LocalListAvailableDrives
-    implements IFileSystemOperationProvider {}
+    implements
+        IFileSystemOperationProvider {}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_mini_commander/data/implementations/local_implementation/local_system_operation_provider.dart';
+import 'package:flutter_mini_commander/data/interfaces/ifile_system_operation_provider.dart';
 import 'package:flutter_mini_commander/presentation/screens/main_screen/main_screen.dart';
 
 void main() {
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: RepositoryProvider(
-        create: (context) => LocalSystemOperationProvider(),
+        create: (context) =>
+            LocalSystemOperationProvider() as IFileSystemOperationProvider,
         lazy: false,
         child: const MainScreen(),
       ),

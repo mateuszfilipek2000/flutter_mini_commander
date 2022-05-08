@@ -4,4 +4,8 @@ import 'package:flutter_mini_commander/data/interfaces/imove_up.dart';
 import 'package:flutter_mini_commander/data/interfaces/iopen_directory.dart';
 
 abstract class IFileSystemOperationProvider
-    implements ICopyEntities, IMoveUp, IOpenDirectory, IListAvailableDrives {}
+    implements
+        ICopyEntities,
+        // IMoveUp,
+        IOpenDirectory,
+        IListAvailableDrives {}
